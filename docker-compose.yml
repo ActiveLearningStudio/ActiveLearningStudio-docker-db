@@ -9,7 +9,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - 5434:5432
+      - ${POSTGRES_EXPOSED_PORT}:5432
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -18,6 +18,7 @@ services:
     volumes:
       - currikiprod-postgresdata:/var/lib/postgresql/data/currikiprod-postgresdata/
       - ./postgresscripts:/postgresscripts
+      - ./postgresscripts/setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
       # - ./data/postgres/postgresql.conf:/var/lib/postgresql/data/currikiprod-postgresdata/abc/postgresql.conf
     networks:
       - currikiprod-laravel
@@ -59,7 +60,7 @@ services:
       SERVICE_NAME: mysql
     # command: mysqld --init-file="/tmp/database/install_db.sql"
     ports:
-      - 3307:3306
+      - ${MYSQL_LOCAL_PORT}:3306
     networks:
       - currikiprod-laravel
   currikiprod-phpmyadmin:
