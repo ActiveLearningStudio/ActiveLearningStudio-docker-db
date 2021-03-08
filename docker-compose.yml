@@ -18,6 +18,7 @@ services:
     volumes:
       - currikiprod-postgresdata:/var/lib/postgresql/data/currikiprod-postgresdata/
       - ./postgresscripts:/postgresscripts
+      - ./postgresscripts/setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
       # - ./data/postgres/postgresql.conf:/var/lib/postgresql/data/currikiprod-postgresdata/abc/postgresql.conf
     networks:
       - currikiprod-laravel
