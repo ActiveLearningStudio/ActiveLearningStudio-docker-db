@@ -87,19 +87,19 @@ volumes: #provide volume
       driver_opts:
         o: bind
         type: none
-        device: /mnt/PilotsDBData/currikiprod-mysqldata
+        device: /mnt/DBData/currikiprod-mysqldata
     currikiprod-postgresdata:
       driver: local
       driver_opts:
         o: bind
         type: none
-        device: /mnt/PilotsDBData/currikiprod-postgresdata
+        device: /mnt/DBData/currikiprod-postgresdata
     pgadmin-data:
       driver: local
       driver_opts:
         o: bind
         type: none
-        device: /mnt/PilotsDBData/pgadmin-data
+        device: /mnt/DBData/pgadmin-data
 
 networks:
   currikiprod-laravel:
