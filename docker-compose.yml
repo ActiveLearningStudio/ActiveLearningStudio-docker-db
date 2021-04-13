@@ -49,6 +49,7 @@ services:
     tty: true
     volumes:
       - currikiprod1-mysqldata:/var/lib/mysql
+      - ./mysqlscripts/tsugisetup.sql:/docker-entrypoint-initdb.d/tsugisetup.sql:ro
       # - ./tmp/database/setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
       # - ./tmp/database/install_db.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - ./mysqlscripts:/mysqlscripts
