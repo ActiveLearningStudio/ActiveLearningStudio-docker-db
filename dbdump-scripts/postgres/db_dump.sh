@@ -11,7 +11,7 @@ DATABASE=curriki
 # Note that we are setting the password to a global environment variable temporarily.
 echo "Pulling Database: This may take a few minutes"
 export PGPASSWORD="$PASSWORD"
-pg_dump  --cluster  9.3/main -F t -h $HOSTNAME -U $USERNAME $DATABASE > $(date +%Y-%m-%d).backup
+pg_dump -F t -h $HOSTNAME -U $USERNAME $DATABASE > $(date +%Y-%m-%d).backup
 unset PGPASSWORD
 gzip $(date +%Y-%m-%d).backup
 echo "Pull Complete"
