@@ -20,27 +20,26 @@ services:
       - ./postgresscripts:/postgresscripts
       - ./postgresscripts/setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
       - ./postgresscripts/traxdb.sql:/docker-entrypoint-initdb.d/traxdb.sql:ro
-      # - ./data/postgres/postgresql.conf:/var/lib/postgresql/data/currikiprod1-postgresdata/abc/postgresql.conf
     networks:
       - currikiprod1-laravel
     
-  currikiprod1-pgadmin:
-    image: dpage/pgadmin4:4.18
-    container_name: currikiprod1-pgadmin
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-      PGADMIN_LISTEN_PORT: 80
-    ports:
-      - ${PGADMIN_EXPOSED_PORT}:80
-    volumes:
-      - pgadmin1-data:/var/lib/pgadmin
-      - ./postgresscripts:/postgresscripts
-    links:
-      - "currikiprod1-postgres:pgsql-server"
-    networks:
-      - currikiprod1-laravel
+  # currikiprod1-pgadmin:
+  #   image: dpage/pgadmin4:4.18
+  #   container_name: currikiprod1-pgadmin
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+  #     PGADMIN_LISTEN_PORT: 80
+  #   ports:
+  #     - ${PGADMIN_EXPOSED_PORT}:80
+  #   volumes:
+  #     - pgadmin1-data:/var/lib/pgadmin
+  #     - ./postgresscripts:/postgresscripts
+  #   links:
+  #     - "currikiprod1-postgres:pgsql-server"
+  #   networks:
+  #     - currikiprod1-laravel
   
   currikiprod1-mysql:
     image: mysql:5.7.22
@@ -50,8 +49,6 @@ services:
     volumes:
       - currikiprod1-mysqldata:/var/lib/mysql
       - ./mysqlscripts/tsugisetup.sql:/docker-entrypoint-initdb.d/tsugisetup.sql:ro
-      # - ./tmp/database/setup.sql:/docker-entrypoint-initdb.d/setup.sql:ro
-      # - ./tmp/database/install_db.sql:/docker-entrypoint-initdb.d/init.sql:ro
       - ./mysqlscripts:/mysqlscripts
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -65,22 +62,22 @@ services:
       - ${MYSQL_LOCAL_PORT}:3306
     networks:
       - currikiprod1-laravel
-  currikiprod1-phpmyadmin:
-    depends_on:
-      - currikiprod1-mysql
-    image: phpmyadmin/phpmyadmin
-    container_name: currikiprod1-phpmyadmin
-    restart: always
-    ports:
-      - ${PHPMYADMIN_EXPOSED_PORT}:80
-    volumes:
-      - ./php.ini:/usr/local/etc/php/php.ini
-    environment:
-      PMA_HOST: currikiprod1-mysql
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      PMA_ABSOLUTE_URI: ${PMA_ABSOLUTE_URI}
-    networks:
-      - currikiprod1-laravel
+  # currikiprod1-phpmyadmin:
+  #   depends_on:
+  #     - currikiprod1-mysql
+  #   image: phpmyadmin/phpmyadmin
+  #   container_name: currikiprod1-phpmyadmin
+  #   restart: always
+  #   ports:
+  #     - ${PHPMYADMIN_EXPOSED_PORT}:80
+  #   volumes:
+  #     - ./php.ini:/usr/local/etc/php/php.ini
+  #   environment:
+  #     PMA_HOST: currikiprod1-mysql
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  #     PMA_ABSOLUTE_URI: ${PMA_ABSOLUTE_URI}
+  #   networks:
+  #     - currikiprod1-laravel
       
 volumes: #provide volume
     currikiprod1-mysqldata:
@@ -95,12 +92,12 @@ volumes: #provide volume
         o: bind
         type: none
         device: /mnt/DBData/currikiprod1-postgresdata
-    pgadmin1-data:
-      driver: local
-      driver_opts:
-        o: bind
-        type: none
-        device: /mnt/DBData/pgadmin1-data
+    # pgadmin1-data:
+    #   driver: local
+    #   driver_opts:
+    #     o: bind
+    #     type: none
+    #     device: /mnt/DBData/pgadmin1-data
 
 networks:
   currikiprod1-laravel:
